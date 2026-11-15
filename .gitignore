@@ -1,52 +1,109 @@
-# Prerequisites
-*.d
+# ========================================================
+# Quartus / Quartus Prime 工程 .gitignore
+# 原则：提交「人写的 + 工程配置」，忽略「工具生成的」
+#
+# 一定要提交（别误伤）：
+#   *.qpf  *.qsf  *.qip  *.sdc  *.qsys  *.stp  *.vwf  *.do  *.tcl
+#   *.v  *.sv  *.vhd  *.vhdl  *.bdf  *.tdf  *.mif  *.hex
+# ========================================================
 
-# Object files
-*.o
-*.ko
-*.obj
-*.elf
+# ===== 编译数据库 / 增量编译缓存（可完全重新生成，体积很大）=====
+db/
+qdb/
+incremental_db/
+greybox_tmp/
+dni/
+hps_isw_handoff/
+*.qdb
+*.ddb
+*.ndb
+*.tdb
+*.rdb
+*.hdb
+*.cdb
 
-# Linker output
-*.ilk
-*.map
-*.exp
+# ===== 编译输出目录（Quartus Prime 默认把产物都丢这里）=====
+output_files/
 
-# Precompiled Headers
-*.gch
-*.pch
+# ===== 报告 / 时序 / 装配统计（每次编译重新生成）=====
+*.rpt
+*.summary
+*.smsg
+*.jdi
+*.pin
+*.gnf
+*.eqn
+*.qws
 
-# Libraries
-*.lib
-*.a
-*.la
-*.lo
+# ===== 编程文件（可重新编出来）=====
+*.sof
+*.pof
+*.sop
+*.pfl
+*.jic
+*.rbf
+*.rpd
+*.isp
+*.mcs
+*.hexout
+*.sld
+*.done
+*.p2s
+*.p2t
+*.qpg
 
-# Shared objects (inc. Windows DLLs)
-*.dll
-*.so
-*.so.*
-*.dylib
+# ===== IP / MegaWizard 自动生成的模板 =====
+*_inst.v
+*_bb.v
+*.cmp
+*.bpm
+*.sip
 
-# Executables
-*.exe
-*.out
-*.app
-*.i*86
-*.x86_64
-*.hex
+# ===== 仿真（ModelSim / Questa / VCS / Verilator / Icarus）=====
+# 只忽略仿真产物目录，模拟器路径之外的东西（比如你自己的 testbench）不受影响
+work/
+obj_dir/
+simulation/modelsim/
+simulation/questa/
+simulation/synopsys/
+simulation/aldec/
+transcript
+transcript.*
+modelsim.ini
+*.wlf
+*.wlf.*
+*.mpf
+*.vstf
+*.vo
+*.vho
+*.sdo
+*.vqm
+*.vcd
+*.fst
+*.fsdb
+*.sav
+*.vsim.wlf
 
-# Debug files
-*.dSYM/
-*.su
-*.idb
-*.pdb
+# ===== Nios II / Qsys 软件工程 =====
+# 如果要把 Nios II 软件工程也纳入 git，把下面三条删掉
+*_sw/
+*sdk/
+*.sopcinfo
+.qsys_edit/
 
-# Kernel Module Compile Results
-*.mod*
-*.cmd
-.tmp_versions/
-modules.order
-Module.symvers
-Mkfile.old
-dkms.conf
+# ===== 备份文件 =====
+*.bak
+*.orig
+*.qws.bak
+
+# ===== 操作系统 / 编辑器 =====
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+
+# ===== 可选：想归档 bitstream =====
+# 默认 output_files/ 整个目录被跳过。要保留 .sof 就把上面那条改成 output_files/*
+# 再解开下面这行
+# !output_files/*.sof
